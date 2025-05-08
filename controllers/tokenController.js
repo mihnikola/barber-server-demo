@@ -11,19 +11,15 @@ exports.saveToken = async (req, res) => {
     const tokens = await Token.findOne({ token: tokenExpo });
     if (tokens) {
       return res.status(200).send("Token already exist");
-    } else {
-      if (tokenUser) {
+    }
+     
         const newToken = new Token({ token: tokenExpo });
         await newToken.save();
-      } else {
-        // const newToken = new Token({ token: tokenExpo, user: null });
-        const newToken = new Token({ token: tokenExpo});
-        await newToken.save();
-      }
+     
 
       res.status(200).send("Token saved successfully");
       console.log("Token saved successfully");
-    }
+    
   } catch (error) {
     console.error("Error saving token:", error);
     res.status(500).send("Failed to save token");
